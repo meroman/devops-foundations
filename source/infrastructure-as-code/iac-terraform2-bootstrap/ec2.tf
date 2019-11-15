@@ -24,7 +24,7 @@ data "template_file" "init" {
 
 
 # Crea la maquina virtual deseada usando la variable name como nombre
-resource "aws_instance" "terraform-lab1" {
+resource "aws_instance" "terraform-lab2" {
   instance_type = "${var.aws_instance_type}"
   vpc_security_group_ids = [ "${aws_security_group.security_group.id}" ]
   tags = {
@@ -38,6 +38,10 @@ resource "aws_instance" "terraform-lab1" {
   user_data = "${data.template_file.init.rendered}"
 }
 
+#despliega la ip del servidor creado
 
+output "local_ip" {
+   value = "${aws_instance.terraform-lab2.*.private_ip}"
+}
 
 
